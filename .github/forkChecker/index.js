@@ -8,7 +8,7 @@ async function main() {
         console.log(`Running for PR: ${pullRequestNumber}\n`);
         let rest = new rm.RestClient('forkChecker');
         console.log('Getting PR info info\n');
-        let res = await rest.get(`https://api.github.com/repos/DmitriiBobreshev/azure-pipelines-agent/pulls/${pullRequestNumber}/labels`);
+        let res = await rest.get(`https://api.github.com/repos/DmitriiBobreshev/azure-pipelines-agent/pulls/${pullRequestNumber}`);
         const isFork = res.result?.head?.repo?.fork;
         console.log(`IsFork: ${isFork}`);
         if (isFork) {
