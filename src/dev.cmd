@@ -22,6 +22,7 @@ if exist "%SH_PATH%" (
 echo Unable to resolve location of sh.exe. 1>&2
 exit /b 1
 
+
 :run
 echo on
 "%SH_PATH%" "%~dp0dev.sh" %*
