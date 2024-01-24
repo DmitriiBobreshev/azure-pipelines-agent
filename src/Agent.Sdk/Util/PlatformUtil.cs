@@ -190,6 +190,9 @@ namespace Agent.Sdk
                         }
                     }
                 }
+
+                throw new Exception($"Can't find ID in {filePath}");
+
             }
 
             return null;
@@ -198,9 +201,7 @@ namespace Agent.Sdk
         private static string GetLinuxName()
         {
             string filePath = GetOsReleaseFilePath();
-            Console.WriteLine($"filePath: {filePath}");
-            Console.WriteLine($"RunningOnLinux: {RunningOnLinux}");
-            
+
             if (RunningOnLinux)
             {
                 Regex linuxVersionIdRegex = new Regex("^VERSION_ID\\s*=\\s*\"?(?<id>[0-9a-z._-]+)\"?");
@@ -218,8 +219,10 @@ namespace Agent.Sdk
                         }
                     }
                 }
-            }
 
+                throw new Exception($"Can't find VERSION_ID in {filePath}");
+            }
+            
             return null;
         }
 
