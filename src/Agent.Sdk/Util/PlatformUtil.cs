@@ -152,13 +152,32 @@ namespace Agent.Sdk
             }
         }
 
+        private static string GetOsReleaseFilePath()
+        {
+            if (RunningOnLinux)
+            {
+                if (File.Exists("/etc/os-release"))
+                {
+                    return "/etc/os-release";
+                }
+                else if (File.Exists("/usr/lib/os-release"))
+                {
+                    return "/usr/lib/os-release";
+                }
+            }
+
+            return null;
+        }
+
         private static string GetLinuxId()
         {
-            if (RunningOnLinux && File.Exists("/etc/os-release"))
+            string filePath = GetOsReleaseFilePath();
+            // /usr/lib/os-release
+            if (RunningOnLinux)
             {
                 Regex linuxIdRegex = new Regex("^ID\\s*=\\s*\"?(?<id>[0-9a-z._-]+)\"?");
 
-                using (StreamReader reader = new StreamReader("/etc/os-release"))
+                using (StreamReader reader = new StreamReader(filePath))
                 {
                     while (!reader.EndOfStream)
                     {
@@ -178,11 +197,13 @@ namespace Agent.Sdk
 
         private static string GetLinuxName()
         {
-            if (RunningOnLinux && File.Exists("/etc/os-release"))
+            string filePath = GetOsReleaseFilePath();
+
+            if (RunningOnLinux)
             {
                 Regex linuxVersionIdRegex = new Regex("^VERSION_ID\\s*=\\s*\"?(?<id>[0-9a-z._-]+)\"?");
 
-                using (StreamReader reader = new StreamReader("/etc/os-release"))
+                using (StreamReader reader = new StreamReader(filePath))
                 {
                     while (!reader.EndOfStream)
                     {
