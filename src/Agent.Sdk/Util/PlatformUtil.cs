@@ -198,7 +198,9 @@ namespace Agent.Sdk
         private static string GetLinuxName()
         {
             string filePath = GetOsReleaseFilePath();
-
+            Console.WriteLine($"filePath: {filePath}");
+            Console.WriteLine($"RunningOnLinux: {RunningOnLinux}");
+            
             if (RunningOnLinux)
             {
                 Regex linuxVersionIdRegex = new Regex("^VERSION_ID\\s*=\\s*\"?(?<id>[0-9a-z._-]+)\"?");
