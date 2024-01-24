@@ -53,6 +53,7 @@ function print_rhel6depricationmessage()
 }
 
 if [ -e /etc/os-release ]
+then
     filepath='/etc/os-release'
 else 
     filepath='/usr/lib/os-release'
